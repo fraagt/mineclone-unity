@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3949271996960747864}
   - component: {fileID: 2864050735794175449}
-  - component: {fileID: 448105499833317628}
+  - component: {fileID: 2554435028823770463}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -139,10 +139,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 4295650822263614623}
+  characterController: {fileID: 2554435028823770463}
   speed: 5
   sensitivity: 2
---- !u!136 &448105499833317628
-CapsuleCollider:
+--- !u!143 &2554435028823770463
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -159,11 +160,14 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
+  m_Height: 2
   m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &7619664665683614583
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +193,7 @@ Transform:
   m_GameObject: {fileID: 7619664665683614583}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

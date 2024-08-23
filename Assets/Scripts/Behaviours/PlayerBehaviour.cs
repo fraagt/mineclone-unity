@@ -7,10 +7,15 @@ namespace Behaviours
     public class PlayerBehaviour : MonoBehaviour
     {
         [SerializeField] private Transform head;
+        [SerializeField] private CharacterController characterController;
         [SerializeField] private float speed = 5.0f;
         [SerializeField] private float sensitivity = 2.0f;
+        [SerializeField] private float gravity = -9.81f;
+        [SerializeField] private float jumpForce = 8.0f;
 
         private float _pitch = 0.0f; // For tracking the pitch
+        private Vector3 _velocity;
+        private bool _isGrounded;
 
         private void Awake()
         {
@@ -49,7 +54,8 @@ namespace Behaviours
 
         private void UpdateMovement()
         {
-            // Handle movement
+            _isGrounded = characterController.isGrounded;
+
             var direction = Vector3.zero;
             if (Input.GetKey(KeyCode.W))
                 direction.z += 1.0f;
@@ -59,16 +65,20 @@ namespace Behaviours
                 direction.x += 1.0f;
             if (Input.GetKey(KeyCode.A))
                 direction.x -= 1.0f;
-            if (Input.GetKey(KeyCode.Space))
-                direction.y += 1.0f;
-            if (Input.GetKey(KeyCode.LeftShift))
-                direction.y -= 1.0f;
+            if (Input.GetKey(KeyCode.Space) && _isGrounded)
+                _velocity.y = jumpForce;
 
-            if (!(direction.magnitude > 0.0f))
-                return;
+            if (direction.sqrMagnitude > 0.0f)
+            {
+                direction = head.right * direction.x + Vector3.up * direction.y + head.forward * direction.z;
+                direction.Normalize();
+            }
 
-            direction = head.right * direction.x + Vector3.up * direction.y + head.ForwardRestrictPitch() * direction.z;
-            transform.position += direction.normalized * (speed * Time.deltaTime);
+            // Apply gravity
+            _velocity.y += gravity * Time.deltaTime;
+
+            // Move the character
+            characterController.Move((direction * speed + _velocity) * Time.deltaTime);
         }
 
         private void UpdatePlayerPose()

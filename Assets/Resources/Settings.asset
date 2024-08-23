@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   settingsVo:
-    RenderDistance: 35
+    RenderDistance: 5
     Seed: 0

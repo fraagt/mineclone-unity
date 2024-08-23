@@ -1,19 +1,60 @@
-﻿using Data;
+﻿using Enums;
 using UnityEngine;
 
 namespace Behaviours
 {
     public class ChunkBehaviour : MonoBehaviour
     {
-        public ChunkData Data { get; private set; }
+        [SerializeField] private new Transform transform;
+        [SerializeField] private new GameObject gameObject;
+        [SerializeField] private MeshFilter meshFilter;
+        [SerializeField] private Transform cubePrefab;
 
-        private Material _material;
-
-        public void Init(ChunkData chunkData)
+        public void SetParent(Transform parent)
         {
-            Data = chunkData;
-            // transform.position = chunkData.Position;
-            transform.position = new Vector3(chunkData.Position.x, chunkData.Height, chunkData.Position.z);
+            transform.SetParent(parent);
+        }
+
+        public void SetActive(bool isActive)
+        {
+            gameObject.SetActive(isActive);
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            transform.position = position;
+        }
+
+        public void SetMesh(Mesh mesh)
+        {
+            meshFilter.mesh = mesh;
+        }
+
+        public void SpawnCubes(EBlockType[,,] chunkDataBlocks)
+        {
+            for (var y = 0; y < ChunkConstants.HEIGHT; ++y)
+            {
+                for (var x = 0; x < ChunkConstants.LENGTH; ++x)
+                {
+                    for (var z = 0; z < ChunkConstants.LENGTH; ++z)
+                    {
+                        if (chunkDataBlocks[x, y, z] != EBlockType.Air)
+                        {
+                            var trans = Instantiate(cubePrefab, transform.position + new Vector3(x, y, z),
+                                Quaternion.identity, transform);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Despawn()
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.name != "Mesh")
+                    Destroy(child.gameObject);
+            }
         }
     }
 }

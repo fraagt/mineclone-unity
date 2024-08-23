@@ -142,6 +142,8 @@ MonoBehaviour:
   characterController: {fileID: 2554435028823770463}
   speed: 5
   sensitivity: 2
+  gravity: -9.81
+  jumpForce: 8
 --- !u!143 &2554435028823770463
 CharacterController:
   m_ObjectHideFlags: 0

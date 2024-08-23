@@ -25,19 +25,26 @@ namespace Pools
             _poolSize += _poolIncrement;
         }
 
-        public ChunkBehaviour Spawn()
+        public ChunkBehaviour Spawn(Transform parent)
         {
             if (!_pool.Any())
             {
                 ExpandPool();
             }
 
-            return _pool.Pop();
+            var chunkBehaviour = _pool.Pop();
+            chunkBehaviour.SetActive(true);
+            chunkBehaviour.SetParent(parent);
+
+            return chunkBehaviour;
         }
 
         public void Despawn(ChunkBehaviour chunkBehaviour)
         {
             chunkBehaviour.gameObject.transform.SetParent(gameObject.transform);
+            chunkBehaviour.Despawn();
+            chunkBehaviour.SetMesh(null);
+            chunkBehaviour.SetActive(false);
             _pool.Push(chunkBehaviour);
         }
     }

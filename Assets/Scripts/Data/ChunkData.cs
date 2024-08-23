@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using Behaviours;
+using Enums;
 using UnityEngine;
 
 namespace Data
@@ -8,8 +9,8 @@ namespace Data
         public Vector2Int Index { get; }
         public Vector3 Position { get; }
         public EBlockType[,,] Blocks { get; }
-
-        public float Height;
+        public ChunkBehaviour ChunkBehaviour;
+        public Mesh Mesh;
 
 
         public ChunkData(Vector2Int index, Vector3 position)

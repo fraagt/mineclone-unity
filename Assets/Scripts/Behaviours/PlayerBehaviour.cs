@@ -75,7 +75,7 @@ namespace Behaviours
             }
 
             // Apply gravity
-            _velocity.y += gravity * Time.deltaTime;
+            // _velocity.y += gravity * Time.deltaTime;
 
             // Move the character
             characterController.Move((direction * speed + _velocity) * Time.deltaTime);

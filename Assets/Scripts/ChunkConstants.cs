@@ -5,4 +5,6 @@
 
     public const float LENGTH_FLOAT = 16.0f;
     public const float HEIGHT_FLOAT = 256.0f;
+    
+    public const float LENGTH_SQUARE_FLOAT = 256.0f;
 }
